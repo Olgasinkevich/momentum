@@ -1,32 +1,42 @@
 export class Timer {
-  constructor() {
+  constructor(callbacks) {
     this.date = new Date();
     this.currentDay = this.date.getDate();
-    this.timePosition = this.getTimePosition();
-    this.datePosition =  this.getDatePosition ();
-    this.init();
+    this.currentHour = this.date.getHours();
+    this.timePosition = this.getPosition('time');
+    this.datePosition =  this.getPosition ('date');
+    this.init(callbacks);
   }
 
-  init() {
+  init({everySecondCallback, everyHourCallback, everyDayCallback}) {
     this.insertTimeValue();
     this.insertDateValue();
 
     setInterval(() => {
       this.date = new Date();
       this.insertTimeValue();
+      //everySecondCallback && everySecondCallback();
+
+      if (this.currentHour !== this.date.getHours()) {
+        this.currentHour = this.date.getHours();
+        everyHourCallback && everyHourCallback();
+      }
+
       if (this.currentDay !== this.date.getDate()) {
         this.currentDay = this.date.getDate();
         this.insertDateValue();
+        //everyDayCallback && everyDayCallback();
       }
+
     }, 1000);
   }
 
-  getTimePosition() {
-    return document.querySelector('time');
+  getPosition(selector) {
+    return document.querySelector(selector);
   }
 
-   getDatePosition (){
-    return document.querySelector('date');
+  getTimeOfDay() {
+    return Math.floor(this.currentHour / 6);
   }
 
   insertTimeValue() {
