@@ -1,10 +1,14 @@
-export class Timer {
+import {Utils} from "./_utils";
+
+export class Timer extends Utils {
   constructor(callbacks) {
+    super();
     this.date = new Date();
     this.currentDay = this.date.getDate();
     this.currentHour = this.date.getHours();
     this.timePosition = this.getPosition('time');
-    this.datePosition =  this.getPosition ('date');
+    this.datePosition = this.getPosition('date');
+    this.partsDayArray = ['night', 'morning', 'day', 'evening'];
     this.init(callbacks);
   }
 
@@ -31,12 +35,8 @@ export class Timer {
     }, 1000);
   }
 
-  getPosition(selector) {
-    return document.querySelector(selector);
-  }
-
   getTimeOfDay() {
-    return Math.floor(this.currentHour / 6);
+    return this.partsDayArray[Math.floor(this.currentHour / 6)];
   }
 
   insertTimeValue() {
@@ -44,7 +44,7 @@ export class Timer {
   }
 
   insertDateValue() {
-    const options = {weekday: 'long', month: 'long', day: 'numeric', timeZone: 'UTC'};
+    const options = {weekday: 'long', month: 'long', day: 'numeric'};
     this.datePosition.textContent = this.date.toLocaleDateString('en-En', options);
   }
 }

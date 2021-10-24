@@ -1,24 +1,26 @@
-export class Greeting {
+import {Utils} from "./_utils";
+
+export class Greeting extends Utils{
   constructor() {
+    super();
     this.greetingPosition = this.getPosition('.greeting');
     this.namePosition = this.getPosition('.name');
     this.timeOfDay = null;
-    this.array = ['night', 'morning', 'day', 'evening'];
     this.init();
   }
 
   init() {
-    this.insertGreetingValue();
     this.localeStorage();
-  }
-
-  getPosition(selector) {
-    return document.querySelector(selector);
   }
 
   setTimeOfDay(value) {
     this.timeOfDay = value;
   };
+
+  updateTimeOfDay(value) {
+    this.setTimeOfDay(value);
+    this.insertGreetingValue();
+  }
 
   localeStorage() {
     window.addEventListener('load', () => {
@@ -34,6 +36,6 @@ export class Greeting {
   }
 
   insertGreetingValue() {
-    this.greetingPosition.textContent = `Good ${this.array[this.timeOfDay]},`;
+    this.greetingPosition.textContent = `Good ${this.timeOfDay},`;
   }
 }
