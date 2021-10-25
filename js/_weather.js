@@ -26,7 +26,6 @@ export class Weather extends Utils {
     const url = this.createUrl(this.city);
     const res = await fetch(url);
     const data = await res.json();
-    console.log(data);
     this.showWeather(data);
   }
 
