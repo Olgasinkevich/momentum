@@ -264,6 +264,17 @@ body {
     min-height: 20px;
 }
 
+footer {
+    padding: 0 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#logo {
+    width: 150px;
+}
+
 @media (max-width: 768px) {
     .time {
         min-height: 80px;
