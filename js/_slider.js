@@ -36,7 +36,11 @@ export class Slider extends Utils{
   }
 
   setBg () {
+    const img = new Image();
     const url = this.createImageUrl(this.timeOfDay, this.bgNum.toString().padStart(2, '0'));
-    this.sliderPosition.style.backgroundImage = `url(${url})`
+    img.src = url;
+    img.onload = (data) => {
+      this.sliderPosition.style.backgroundImage = `url(${url})`;
+    };
   }
 }
